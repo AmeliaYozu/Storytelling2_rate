@@ -28,39 +28,17 @@ r = api.request('statuses/filter', {'locations':'-74,40,-73,41'})
 #
 for item in r:
    if r.status_code!=404: 
-#  if item['geo']!= None:
-    #print "aaaaaaaa"
-    username=item['user']['screen_name']#get userID
-    uname= item['user']['name']#get user name
-    text = item['text']#get Tweet text
 
+    text = item['text']#get Tweet text
     #get and format timestamp into readable time string
     timestamp = item['timestamp_ms']
-    t = int(timestamp[:-3])
-    attime = time.ctime(t)
-
-    #get location information: city, state, country and coordinate
-    place = item['place']['full_name']+", "+item['place']['country']
-    #co = item['coordinates']['coordinates'] #array
-
     #get sentiment information of Tweet text (1000sentiment per 24 hours)
     response = alchemyapi.sentiment('text', text)
     status = response.get('status')
     if status != 'ERROR':
         feature = response['docSentiment']['type'];
-        mood = ""
         if str(feature) != "negative":
-            mood = str(" (T_T) ")
-
-         #   print "========================================================================================"
-        #processed information to further send out from server
-        #    strs = "\n"+uname+" ( "+username +") *"+mood+"* : " +text+"\n"+attime+"\n"+place+"\n"
-        #    strss = str(strs.encode('utf-8'))
-            coded_text = str(text.encode('utf-8'))
-            string1 = "test"
-
-            print json.dumps({"timestamp":time.time(), "emon":mood, "text":coded_text, "user":uname, "time":attime, "place":place})
-        #    print json.dumps({"timestamp":timestamp})
+            print json.dumps({"time":time.time()})
             stdout.flush()
         
 

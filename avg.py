@@ -15,13 +15,13 @@ while 1:
 
     print values
     try:
-        deltas = [float(v) for v in values]
+        durs = [float(v) for v in values]
     except TypeError:
         print keys
         continue
 
-    if len(deltas):
-        rate = sum(deltas)/float(len(deltas))
+    if len(durs):
+        rate = sum(durs)/float(len(durs))
     else:
         rate = 0
 
