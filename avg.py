@@ -15,7 +15,7 @@ while 1:
 
     print values
     try:
-        deltas = [float(v.timestamp) for v in values]
+        deltas = [float(v) for v in values]
     except TypeError:
         print keys
         continue
